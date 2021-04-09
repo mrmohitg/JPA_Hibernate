@@ -1,0 +1,9 @@
+package com.springdata.product.entity;
+
+public class Product {
+
+	private int id;
+	private String name;
+	private String desc;
+	private double price;
+}
