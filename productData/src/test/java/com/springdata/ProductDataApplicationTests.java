@@ -1,5 +1,10 @@
 package com.springdata;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,30 @@ class ProductDataApplicationTests {
 		product.setDesc("Awesome");
 		product.setPrice(1000d);
 		productRepository.save(product);
+	}
+	
+	@Test
+	public void testRead()
+	{
+		Product product = productRepository.findById(1).get();
+		assertNotNull(product);
+		assertEquals("IPhone", product.getName());
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> "+product.getDesc());
+	}
+	
+	@Test
+	public void testUpdate()
+	{
+		Product product = productRepository.findById(1).get();
+		product.setName("IPad");
+		productRepository.save(product);
+		
+	}
+	
+	@Test
+	public void testDelete()
+	{
+		productRepository.deleteById(1);
 	}
 
 }
