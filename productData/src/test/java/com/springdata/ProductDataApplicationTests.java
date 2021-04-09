@@ -57,7 +57,18 @@ class ProductDataApplicationTests {
 	@Test
 	public void testDelete()
 	{
-		productRepository.deleteById(1);
+		Product product;
+		if(productRepository.existsById(1))
+		{
+			product = productRepository.findById(1).get();
+			System.out.println("Deleting a product.");
+			productRepository.delete(product);
+		}
 	}
-
+	
+	@Test
+	public void testCount()
+	{
+			System.out.println("Total Records --------- "+productRepository.count());
+	}
 }
