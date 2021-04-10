@@ -3,6 +3,7 @@ package com.springdata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -70,5 +71,13 @@ class ProductDataApplicationTests {
 	public void testCount()
 	{
 			System.out.println("Total Records --------- "+productRepository.count());
+	}
+	
+	
+	@Test
+	public void testFindByName()
+	{
+		List<Product> listOfProduct = productRepository.findByName("AppleTV");
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
 	}
 }
