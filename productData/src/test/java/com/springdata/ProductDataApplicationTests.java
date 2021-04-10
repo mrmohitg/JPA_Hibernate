@@ -3,6 +3,7 @@ package com.springdata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,4 +81,47 @@ class ProductDataApplicationTests {
 		List<Product> listOfProduct = productRepository.findByName("AppleTV");
 		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
 	}
+	
+	@Test
+	public void testFindByNameAndDesc()
+	{
+		List<Product> listOfProduct = productRepository.findByNameAndDesc("MacBookPro","Super");
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindByPriceGreaterThan()
+	{
+		List<Product> listOfProduct = productRepository.findByPriceGreaterThan(100);
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindByDescContains()
+	{
+		List<Product> listOfProduct = productRepository.findByDescContains("Tiney");
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindByPriceBetween()
+	{
+		List<Product> listOfProduct = productRepository.findByPriceBetween(100,500);
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindByNameLike()
+	{
+		List<Product> listOfProduct = productRepository.findByNameLike("%Apple%");
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindByIdIn()
+	{
+		List<Product> listOfProduct = productRepository.findByIdIn(Arrays.asList(1,2,3,4));
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
 }
