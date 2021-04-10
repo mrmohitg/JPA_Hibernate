@@ -11,6 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springdata.product.entity.Product;
@@ -122,6 +127,37 @@ class ProductDataApplicationTests {
 	{
 		List<Product> listOfProduct = productRepository.findByIdIn(Arrays.asList(1,2,3,4));
 		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindAllPaging()
+	{
+		Pageable pageable = PageRequest.of(0, 2);
+		Page<Product> listOfProduct = productRepository.findAll(pageable);
+		listOfProduct.forEach(P -> System.out.println("Price of "+P.getName()+" is $"+P.getPrice()+"."));
+	}
+	
+	@Test
+	public void testFindAllSorting()
+	{
+		productRepository.findAll(Sort.by(new Sort.Order(Direction.ASC, "name"), new Sort.Order(null, "price")))
+				.forEach(P -> System.out.println("Price of " + P.getName() + " is $" + P.getPrice() + "."));
+	}
+	
+	@Test
+	public void testFindAllPagingAndSorting()
+	{
+		Pageable pageable = PageRequest.of(0, 2, Direction.ASC, "name");
+		productRepository.findAll(pageable)
+				.forEach(P -> System.out.println("Price of " + P.getName() + " is $" + P.getPrice() + "."));
+	}
+	
+	@Test
+	public void testFindByIdInPageable()
+	{
+		Pageable pageable = PageRequest.of(0, 3, Direction.ASC, "name");
+		productRepository.findByIdIn(Arrays.asList(1, 2, 3, 4), pageable)
+				.forEach(P -> System.out.println("Price of " + P.getName() + " is $" + P.getPrice() + "."));
 	}
 	
 }

@@ -2,11 +2,13 @@ package com.springdata.product.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.springdata.product.entity.Product;
 
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepository extends /*CrudRepository<Product, Integer>*/ PagingAndSortingRepository<Product, Integer> {
 	
 	List<Product> findByName(String name);
 	
@@ -21,5 +23,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	List<Product> findByNameLike(String name);
 	
 	List<Product> findByIdIn(List<Integer> ids);
+	
+	List<Product> findByIdIn(List<Integer> ids, Pageable pageable);
 
 }
