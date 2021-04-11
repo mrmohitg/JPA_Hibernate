@@ -1,5 +1,6 @@
 package com.springdata.hibernateInheritance.entity;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,14 +10,16 @@ import javax.persistence.Table;
 @DiscriminatorValue("CC")
 public class CreditCard extends Payment{
 	
-	private String creditCard;
+	@Column(name = "cardnumber")
+	private String cardNumber;
 
-	public String getCreditCard() {
-		return creditCard;
+	public String getCardNumber() {
+		return cardNumber;
 	}
 
-	public void setCreditCard(String creditCard) {
-		this.creditCard = creditCard;
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
+
 
 }
