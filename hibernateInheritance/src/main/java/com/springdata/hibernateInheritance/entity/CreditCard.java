@@ -3,6 +3,7 @@ package com.springdata.hibernateInheritance.entity;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +13,10 @@ import javax.persistence.Table;
 //@DiscriminatorValue("CC")
 
 //For InheritanceType.TABLE_PER_CLASS 
+//@Table(name = "card")
+
+//For InheritanceType.JOINED
+@PrimaryKeyJoinColumn(name = "id")
 @Table(name = "card")
 public class CreditCard extends Payment{
 	

@@ -18,7 +18,10 @@ import javax.persistence.Table;
 //@DiscriminatorColumn(name = "pmode", discriminatorType = DiscriminatorType.STRING)
 
 //For InheritanceType.TABLE_PER_CLASS
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+//For InheritanceType.JOINED
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Payment {
 
 	@Id
