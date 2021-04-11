@@ -98,5 +98,17 @@ class JpqlandnativesqlApplicationTests {
 		System.out.println(studentRepository.findAllStudentsPageWise(PageRequest.of(0, 10, Direction.DESC, "score")));
 	}
 	
+	@Test
+	public void testFindAllStudentsNQ()
+	{
+		System.out.println(studentRepository.findAllStudentsNQ());
+	}
+	
+	@Test
+	public void testFindByFirstNameNQ()
+	{
+		System.out.println(studentRepository.findByFirstNameNQ("Swati"));
+	}
+	
 	
 }

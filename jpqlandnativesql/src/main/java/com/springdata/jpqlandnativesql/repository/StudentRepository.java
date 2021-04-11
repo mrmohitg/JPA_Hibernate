@@ -3,7 +3,6 @@ package com.springdata.jpqlandnativesql.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -31,5 +30,12 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 	
 	@Query("from Student")
 	List<Student> findAllStudentsPageWise(Pageable pageable);
+	
+	@Query(value = "select * from student", nativeQuery = true)
+	List<Student> findAllStudentsNQ();
+	
+	@Query(value = "select * from student where fname = :firstName", nativeQuery = true)
+	List<Student> findByFirstNameNQ(@Param ("firstName") String firstname);
+
 
 }
