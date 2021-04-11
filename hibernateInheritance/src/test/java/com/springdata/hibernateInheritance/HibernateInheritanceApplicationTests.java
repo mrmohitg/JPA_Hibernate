@@ -25,11 +25,13 @@ class HibernateInheritanceApplicationTests {
 	void createPayment() {
 
 		CreditCard creditCard = new CreditCard();
+		creditCard.setId(1);
 		creditCard.setAmount(123);
 		creditCard.setCardNumber("1234567891");
 		paymentRepository.save(creditCard);
 
 		Check check = new Check();
+		check.setId(2);
 		check.setAmount(123);
 		check.setCheckNumber("9876543210");
 		paymentRepository.save(check);

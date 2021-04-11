@@ -5,9 +5,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+
 @Entity
-@Table
-@DiscriminatorValue("CH")
+
+//For InheritanceType.SINGLE_TABLE 
+//@DiscriminatorValue("CH")
+
+//For InheritanceType.TABLE_PER_CLASS 
+@Table(name = "bankcheck")
 public class Check extends Payment{
 	
 	@Column(name="checknumber")

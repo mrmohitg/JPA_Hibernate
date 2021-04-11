@@ -12,12 +12,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "pmode", discriminatorType = DiscriminatorType.STRING)
+
+//For InheritanceType.SINGLE_TABLE
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "pmode", discriminatorType = DiscriminatorType.STRING)
+
+//For InheritanceType.TABLE_PER_CLASS
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Payment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private double amount;
 

@@ -6,8 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table
-@DiscriminatorValue("CC")
+
+
+//For InheritanceType.SINGLE_TABLE 
+//@DiscriminatorValue("CC")
+
+//For InheritanceType.TABLE_PER_CLASS 
+@Table(name = "card")
 public class CreditCard extends Payment{
 	
 	@Column(name = "cardnumber")
