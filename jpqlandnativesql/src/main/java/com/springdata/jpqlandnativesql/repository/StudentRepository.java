@@ -2,6 +2,8 @@ package com.springdata.jpqlandnativesql.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -26,5 +28,8 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 	@Modifying
 	@Query("delete from Student where firstName = :fName")
 	void deleteStudentByFirstName(@Param("fName") String firstName);
+	
+	@Query("from Student")
+	List<Student> findAllStudentsPageWise(Pageable pageable);
 
 }

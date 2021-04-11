@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -83,6 +86,17 @@ class JpqlandnativesqlApplicationTests {
 		studentRepository.deleteStudentByFirstName("Vipul");
 	}
 	
+	@Test
+	public void testFindAllStudentsPageWise()
+	{
+		System.out.println(studentRepository.findAllStudentsPageWise(PageRequest.of(0, 2)));
+	}
+	
+	@Test
+	public void testSortAllStudentsPageWise()
+	{
+		System.out.println(studentRepository.findAllStudentsPageWise(PageRequest.of(0, 10, Direction.DESC, "score")));
+	}
 	
 	
 }
