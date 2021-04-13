@@ -1,5 +1,6 @@
 package com.springdata.associations.onetomany.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -40,6 +41,18 @@ public class Actor {
 
 	public void setNumbers(Set<PhoneNumber> numbers) {
 		this.numbers = numbers;
+	}
+	
+	public void addPhoneNumber(PhoneNumber phoneNumber) {
+		if (phoneNumber!=null)
+		{
+			if(numbers == null)
+			{
+				numbers = new HashSet<PhoneNumber>();
+			}
+			phoneNumber.setActor(this);
+			numbers.add(phoneNumber);
+		}
 	}
 
 }
