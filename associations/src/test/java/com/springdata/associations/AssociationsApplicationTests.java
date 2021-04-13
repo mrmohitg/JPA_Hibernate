@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.springdata.associations.manytomany.entity.Programmer;
+import com.springdata.associations.manytomany.entity.Project;
+import com.springdata.associations.manytomany.repository.ProgrammerRepository;
 import com.springdata.associations.onetomany.entity.Actor;
 import com.springdata.associations.onetomany.entity.PhoneNumber;
 import com.springdata.associations.onetomany.repository.ActorRepository;
@@ -23,6 +26,9 @@ class AssociationsApplicationTests {
 	
 	@Autowired
 	private ActorRepository actorRepository;
+	
+	@Autowired
+	private ProgrammerRepository programmerRepository;
 
 	@Test
 	void contextLoads() {
@@ -87,6 +93,47 @@ class AssociationsApplicationTests {
 		numbers.forEach(N -> N.setType("Mobile"));
 
 		actorRepository.save(actoras);
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	void testDeleteActor() {
+		actorRepository.deleteById(1L);
+	}
+	
+	@Test
+	void testCreateProgrammer() {
+		  Programmer programmer = new Programmer();
+		  programmer.setName("Mohit");
+		  programmer.setSalary(30000);
+		 
+		  HashSet<Project> projects = new HashSet<Project>(); 
+		  Project project = new Project(); 
+		  project.setName("DRC");
+		  projects.add(project); 
+		 
+		  Project project1 = new Project(); 
+		  project1.setName("LMPS");
+		  projects.add(project1);
+		  
+		  Project project2 = new Project(); 
+		  project2.setName("CP2.0");
+		  projects.add(project2);
+		  
+		  programmer.setProjects(projects);
+		  programmerRepository.save(programmer);
+		 
+
+	}
+	
+	@Test
+	@Transactional
+	void testLoadProgrammer() {
+		Optional<Programmer> programmer = programmerRepository.findById(1);
+		Programmer programmeras = programmer.get();
+		System.out.println(programmeras);
+		System.out.println(programmeras.getProjects());
 	}
 
 }
