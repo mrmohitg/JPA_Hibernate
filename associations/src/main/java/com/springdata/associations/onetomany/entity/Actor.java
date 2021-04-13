@@ -17,7 +17,12 @@ public class Actor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
-	@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//For EAGER Loading
+	//@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	
+	
+	//For LAZY Loading
+	@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<PhoneNumber> numbers;
 
 	public long getId() {
