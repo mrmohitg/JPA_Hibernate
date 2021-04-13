@@ -1,11 +1,16 @@
 package com.springdata.associations;
 
 import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springdata.associations.onetomany.entity.Actor;
@@ -56,6 +61,32 @@ class AssociationsApplicationTests {
 		actor.addPhoneNumber(phoneNumber);
 		actor.addPhoneNumber(phoneNumber1);
 		actorRepository.save(actor);
+	}
+	
+	@Test
+	@Transactional
+	void testLoadActor() {
+		Optional<Actor> actor = actorRepository.findById(1L);
+		Actor actoras = actor.get();
+		System.out.println(actoras.getName());
+		
+		Set<PhoneNumber> numbers = actoras.getNumbers();
+		numbers.forEach(N -> System.out.println(N.getNumber()));
+
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	void testUpdateActor() {
+		Optional<Actor> actor = actorRepository.findById(1L);
+		Actor actoras = actor.get();
+		actoras.setName("Aamir Khan");
+		
+		Set<PhoneNumber> numbers = actoras.getNumbers();
+		numbers.forEach(N -> N.setType("Mobile"));
+
+		actorRepository.save(actoras);
 	}
 
 }
