@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,9 @@ class ProductDataApplicationTests {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	EntityManager entityManager; 
 
 	@Test
 	void contextLoads() {
@@ -158,6 +165,29 @@ class ProductDataApplicationTests {
 		Pageable pageable = PageRequest.of(0, 3, Direction.ASC, "name");
 		productRepository.findByIdIn(Arrays.asList(1, 2, 3, 4), pageable)
 				.forEach(P -> System.out.println("Price of " + P.getName() + " is $" + P.getPrice() + "."));
+	}
+	
+	//Level 1 Cache is default one, Only one query will be seeing in the console
+	@Test
+	@Transactional
+	public void testCaching()
+	{
+		productRepository.findById(1);
+		productRepository.findById(1);
+		productRepository.findById(1);
+	}
+	
+	//Level 1 Cache is default one, two query will be seeing in the console
+	@Test
+	@Transactional
+	public void testCachingLevel1()
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Optional<Product> product = productRepository.findById(1);
+		Product p = product.get();
+		productRepository.findById(1);
+		session.evict(p);
+		productRepository.findById(1);
 	}
 	
 }
