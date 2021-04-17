@@ -3,6 +3,7 @@ package com.springdata.product.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -25,5 +26,14 @@ public interface ProductRepository extends /*CrudRepository<Product, Integer>*/ 
 	List<Product> findByIdIn(List<Integer> ids);
 	
 	List<Product> findByIdIn(List<Integer> ids, Pageable pageable);
+	
+	@Query(value="CALL GetAllProducts", nativeQuery = true)
+	List<Product> findAllProducts();
+	
+	@Query(value="CALL GetAllProductsByPrice (:price_in)", nativeQuery = true)
+	List<Product> findAllProductsByPrice(double price_in);
+	
+	@Query(value="CALL GetAllProductsCountByPrice (:price_in)", nativeQuery = true)
+	int findAllProductsCountByPrice(double price_in);
 
 }

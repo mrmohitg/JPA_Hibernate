@@ -190,4 +190,24 @@ class ProductDataApplicationTests {
 		productRepository.findById(1);
 	}
 	
+	@Test
+	public void testFindAllProducts()
+	{
+		System.out.println(productRepository.findAllProducts());
+	}
+	
+	@Test
+	public void testFindAllProductsByPrice()
+	{
+		System.out.println(productRepository.findAllProductsByPrice(500));
+	}
+	
+	
+	@Test
+	public void testFindAllProductsCountByPrice()
+	{
+		System.out.println(productRepository.findAllProductsCountByPrice(500));
+	}
+	
+	
 }
