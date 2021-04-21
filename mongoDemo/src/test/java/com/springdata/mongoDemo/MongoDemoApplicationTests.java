@@ -1,5 +1,7 @@
 package com.springdata.mongoDemo;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,11 @@ class MongoDemoApplicationTests {
 	@Test
 	void testSave() {
 		Product product = new Product();
-		product.setId("1");
+		product.setId("2");
 		product.setName("Mac Operating System");
 		product.setPrice(2000f);
-		productRepository.save(product);
+		Product savedproduct = productRepository.save(product);
+		assertNotNull(savedproduct);
 	}
 
 }
